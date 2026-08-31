@@ -11,6 +11,25 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        surface: "#111111",
+        border: "#1a1a1a",
+      },
+      borderRadius: {
+        btn: "14px",
+        card: "18px",
+        pill: "20px",
+      },
+      maxWidth: {
+        app: "390px",
+      },
+      fontFamily: {
+        sans: [
+          "system-ui",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "sans-serif",
+        ],
       },
     },
   },
