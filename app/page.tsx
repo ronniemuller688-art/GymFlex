@@ -30,7 +30,7 @@ export default function OnboardingPage() {
         <h1 className="text-2xl font-extrabold leading-tight">
           Work out more.
           <br />
-          <span className="bg-gradient-to-r from-[#dc2626] via-[#d97706] to-[#ca8a04] bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-[#ea580c] to-[#ca8a04] bg-clip-text text-transparent">
             Pay less.
           </span>
         </h1>
