@@ -35,3 +35,52 @@ body {
     min-height: 100dvh;
   }
 }
+
+.phone-frame {
+  min-height: 100dvh;
+}
+
+.phone-screen {
+  position: relative;
+  min-height: 100dvh;
+}
+
+.phone-notch {
+  display: none;
+}
+
+/* Above phone widths, render the app inside a device frame so it reads as
+   a phone mockup on desktop instead of a full-bleed page. */
+@media (min-width: 640px) {
+  .phone-frame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    padding: 40px 0;
+  }
+
+  .phone-screen {
+    width: 100%;
+    max-width: 390px;
+    min-height: 812px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 40px;
+    border: 10px solid #1a1a1a;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+    background: var(--background);
+  }
+
+  .phone-notch {
+    display: block;
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    width: 120px;
+    height: 24px;
+    margin: 0 auto -24px;
+    background: #1a1a1a;
+    border-radius: 0 0 16px 16px;
+  }
+}

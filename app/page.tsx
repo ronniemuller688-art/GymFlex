@@ -30,9 +30,7 @@ export default function OnboardingPage() {
         <h1 className="text-2xl font-extrabold leading-tight">
           Work out more.
           <br />
-          <span className="bg-gradient-to-r from-[#ea580c] to-[#ca8a04] bg-clip-text text-transparent">
-            Pay less.
-          </span>
+          <span style={{ color: "#d97706" }}>Pay less.</span>
         </h1>
         <p className="mt-1 text-sm text-neutral-400">
           The more you visit, the less you pay — automatically.
@@ -42,7 +40,10 @@ export default function OnboardingPage() {
       <ol className="flex flex-col gap-1.5">
         {STEPS.map((step, i) => (
           <li key={step.title} className="flex gap-2.5">
-            <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-surface text-[11px] font-semibold text-neutral-300">
+            <div
+              className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[11px] font-semibold text-white"
+              style={{ backgroundColor: "#1a1a1a" }}
+            >
               {i + 1}
             </div>
             <div className="min-w-0">
@@ -70,7 +71,7 @@ export default function OnboardingPage() {
                   style={{ backgroundColor: tier.colour }}
                 />
                 <div>
-                  <div className="text-sm font-semibold" style={{ color: tier.text }}>
+                  <div className="text-sm font-semibold" style={{ color: tier.colour }}>
                     {tier.name}
                   </div>
                   <div className="text-[11px] text-neutral-500">

@@ -14,7 +14,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased bg-background text-foreground">
-        {children}
+        <div className="phone-frame">
+          <div className="phone-screen">
+            <div className="phone-notch" aria-hidden />
+            {children}
+          </div>
+        </div>
       </body>
     </html>
   );
