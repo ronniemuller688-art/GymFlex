@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>GymFlex Wireframes v3</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+body { background: #0f0f0f; padding: 24px 20px; min-height: 100vh; }
+
+/* NAV */
+.top-nav { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 24px; align-items: center; }
+.nav-label { font-size: 10px; color: #555; font-weight: 600; margin-right: 6px; text-transform: uppercase; letter-spacing: .08em; }
+.nav-btn { padding: 7px 14px; border-radius: 20px; border: 1.5px solid #333; background: #1a1a1a; font-size: 11px; font-weight: 500; cursor: pointer; transition: all .15s; color: #666; }
+.nav-btn.active { background: #4ade80; color: #000; border-color: #4ade80; font-weight: 700; }
+.nav-btn:hover:not(.active) { border-color: #555; color: #ccc; }
+
+/* PHONE */
+.phone-wrap { display: flex; justify-content: center; }
+.phone { width: 340px; background: #0a0a0a; border-radius: 48px; padding: 14px; box-shadow: 0 0 0 1px #222, 0 30px 80px rgba(0,0,0,.8), inset 0 0 0 1px #333; }
+.phone-top { display: flex; justify-content: center; margin-bottom: 10px; }
+.phone-notch { width: 110px; height: 28px; background: #0a0a0a; border-radius: 0 0 18px 18px; border: 1px solid #222; border-top: none; }
+.phone-screen { background: #0a0a0a; border-radius: 34px; overflow: hidden; min-height: 620px; display: flex; flex-direction: column; }
+.screen { display: none; flex-direction: column; min-height: 620px; }
+.screen.active { display: flex; }
+
+/* ── S0: ONBOARDING ── */
+.s0-bg { background: linear-gradient(160deg,#0a0a0a 0%,#0d1a12 100%); flex:1; display:flex; flex-direction:column; padding:20px 22px 16px; overflow-y:auto; }
+.s0-logo { font-size:24px; font-weight:900; color:#fff; letter-spacing:-1px; margin-bottom:2px; }
+.s0-logo span { color:#4ade80; }
+.s0-tagline { font-size:11px; color:#444; margin-bottom:14px; }
+.s0-headline { font-size:22px; font-weight:900; color:white; line-height:1.15; margin-bottom:6px; }
+.s0-headline span { color:#4ade80; }
+.s0-intro { font-size:12px; color:#666; line-height:1.5; margin-bottom:12px; }
+.s0-steps { display:flex; flex-direction:column; gap:8px; margin-bottom:14px; }
+.s0-step { display:flex; gap:12px; align-items:flex-start; }
+.s0-num { width:30px; height:30px; border-radius:50%; background:#4ade80; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:900; color:#000; flex-shrink:0; margin-top:1px; }
+.s0-step-body { flex:1; }
+.s0-step-title { font-size:13px; font-weight:700; color:white; margin-bottom:2px; }
+.s0-step-desc { font-size:11px; color:#555; line-height:1.55; }
+.s0-checkin-box { background:#111; border:1px solid #1a1a1a; border-radius:14px; padding:14px; margin-bottom:22px; }
+.s0-cib-title { font-size:11px; font-weight:700; color:#aaa; margin-bottom:10px; text-transform:uppercase; letter-spacing:.06em; }
+.s0-cib-step { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+.s0-cib-step:last-child { margin-bottom:0; }
+.s0-cib-icon { font-size:18px; width:32px; text-align:center; flex-shrink:0; }
+.s0-cib-text { font-size:12px; color:#888; line-height:1.4; }
+.s0-cib-text strong { color:#ccc; }
+.s0-tiers { background:#111; border:1px solid #1a1a1a; border-radius:14px; padding:11px; margin-bottom:14px; }
+.s0-tiers-title { font-size:10px; color:#444; text-transform:uppercase; letter-spacing:.08em; margin-bottom:10px; font-weight:600; }
+.s0-tier-row { display:flex; align-items:center; margin-bottom:9px; gap:8px; }
+.s0-tier-row:last-child { margin-bottom:0; }
+.s0-tier-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.s0-tier-name { font-size:12px; color:#aaa; flex:1; font-weight:500; }
+.s0-tier-visits { font-size:10px; color:#444; margin-right:4px; }
+.s0-tier-price { font-size:13px; font-weight:700; color:white; }
+.s0-tier-saving { font-size:9px; color:#4ade80; margin-left:4px; }
+.s0-cta { background:#4ade80; border:none; border-radius:14px; padding:16px; width:100%; font-size:15px; font-weight:900; color:#000; cursor:pointer; }
+.s0-signin { text-align:center; margin-top:8px; font-size:12px; color:#444; cursor:pointer; }
+.s0-signin span { color:#4ade80; }
+
+/* ── S1: LOGIN ── */
+.s1-bg { background:linear-gradient(160deg,#0a0a0a,#0d1a12); flex:1; display:flex; flex-direction:column; padding:36px 24px 28px; }
+.s1-logo { font-size:28px; font-weight:900; color:white; letter-spacing:-1px; text-align:center; margin-bottom:4px; }
+.s1-logo span { color:#4ade80; }
+.s1-tag { text-align:center; font-size:12px; color:#444; margin-bottom:32px; }
+.s1-h { font-size:20px; font-weight:800; color:white; margin-bottom:4px; }
+.s1-sub { font-size:12px; color:#555; margin-bottom:22px; }
+.field-lbl { font-size:11px; font-weight:600; color:#555; margin-bottom:5px; display:block; text-transform:uppercase; letter-spacing:.05em; }
+.field { width:100%; padding:13px 14px; border:1.5px solid #1a1a1a; border-radius:12px; font-size:14px; color:white; background:#111; margin-bottom:12px; outline:none; }
+.field.on { border-color:#4ade80; }
+.btn-main { width:100%; padding:14px; background:#4ade80; color:#000; border:none; border-radius:14px; font-size:15px; font-weight:900; cursor:pointer; margin-top:4px; }
+.s1-or { display:flex; align-items:center; gap:10px; margin:18px 0; }
+.s1-or-line { flex:1; height:1px; background:#1a1a1a; }
+.s1-or-text { font-size:11px; color:#444; }
+.s1-socials { display:flex; flex-direction:column; gap:10px; }
+.s1-social-btn { width:100%; padding:13px; border:1.5px solid #1a1a1a; border-radius:12px; background:#111; color:white; font-size:13px; font-weight:500; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px; }
+.s1-foot { text-align:center; margin-top:20px; font-size:11px; color:#444; }
+.s1-foot span { color:#4ade80; }
+
+/* ── S2: DASHBOARD ── */
+.s2-bg { background:#0a0a0a; flex:1; display:flex; flex-direction:column; }
+.s2-header { padding:22px 18px 14px; display:flex; justify-content:space-between; align-items:flex-start; }
+.s2-greet { color:#444; font-size:11px; margin-bottom:2px; }
+.s2-name { color:white; font-size:18px; font-weight:800; }
+.s2-av { width:40px; height:40px; border-radius:50%; background:#4ade80; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:800; color:#000; }
+.s2-tier-card { margin:0 16px 14px; background:linear-gradient(135deg,#1e1400,#2a1e00); border:1px solid #3a2800; border-radius:20px; padding:18px; }
+.s2-tc-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px; }
+.s2-tc-lbl { font-size:10px; color:#fbbf24; text-transform:uppercase; letter-spacing:.08em; font-weight:600; margin-bottom:4px; }
+.s2-tc-tier { font-size:26px; font-weight:900; color:#fbbf24; letter-spacing:-1px; }
+.s2-tc-price-block { text-align:right; }
+.s2-tc-price-lbl { font-size:10px; color:#444; margin-bottom:2px; }
+.s2-tc-price { font-size:22px; font-weight:800; color:#fbbf24; }
+.s2-tc-price-sub { font-size:9px; color:#444; }
+.s2-prog-lbl { display:flex; justify-content:space-between; font-size:10px; color:#444; margin-bottom:6px; }
+.s2-prog-lbl span:last-child { color:#fbbf24; }
+.s2-prog-track { height:6px; background:#1a1a1a; border-radius:3px; margin-bottom:8px; }
+.s2-prog-fill { height:6px; background:linear-gradient(90deg,#d97706,#fbbf24); border-radius:3px; width:65%; }
+.s2-next-msg { font-size:11px; color:#555; }
+.s2-next-msg strong { color:#fbbf24; }
+.s2-kpis { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin:0 16px 14px; }
+.s2-kpi { background:#111; border:1px solid #1a1a1a; border-radius:14px; padding:12px; text-align:center; }
+.s2-kpi-v { font-size:20px; font-weight:800; color:white; }
+.s2-kpi-l { font-size:9px; color:#444; margin-top:2px; text-transform:uppercase; letter-spacing:.05em; }
+.s2-kpi-sub { font-size:9px; color:#4ade80; margin-top:1px; }
+.s2-ci-btn { margin:0 16px 16px; background:#4ade80; border-radius:18px; padding:18px 20px; display:flex; align-items:center; justify-content:space-between; cursor:pointer; }
+.s2-ci-left { }
+.s2-ci-label { font-size:10px; color:#15803d; font-weight:700; text-transform:uppercase; letter-spacing:.05em; margin-bottom:2px; }
+.s2-ci-title { font-size:18px; font-weight:900; color:#000; }
+.s2-ci-sub { font-size:11px; color:#166534; margin-top:1px; }
+.s2-ci-icon { font-size:28px; }
+.s2-section-lbl { font-size:10px; font-weight:600; color:#444; text-transform:uppercase; letter-spacing:.08em; padding:0 16px 8px; }
+.s2-visit-row { display:flex; align-items:center; gap:10px; padding:9px 16px; border-top:1px solid #111; }
+.s2-visit-dot { width:6px; height:6px; border-radius:50%; background:#4ade80; flex-shrink:0; }
+.s2-visit-day { font-size:12px; color:#888; flex:1; }
+.s2-visit-time { font-size:11px; color:#444; }
+.s2-visit-badge { font-size:9px; background:#0d2818; color:#4ade80; padding:2px 7px; border-radius:20px; }
+
+/* ── S3: CHECK-IN (RETURNING USER) ── */
+.s3-bg { background:#0a0a0a; flex:1; display:flex; flex-direction:column; }
+.s3-topbar { padding:20px 18px 14px; display:flex; align-items:center; justify-content:space-between; }
+.s3-back { color:#4ade80; font-size:20px; cursor:pointer; }
+.s3-topbar-title { color:white; font-size:16px; font-weight:700; }
+.s3-guide-btn { font-size:11px; color:#4ade80; background:#0d2818; border:1px solid #1a3a22; padding:5px 12px; border-radius:20px; cursor:pointer; }
+.s3-main { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px 22px; }
+.s3-step-indicators { display:flex; gap:10px; margin-bottom:28px; }
+.s3-ind { display:flex; flex-direction:column; align-items:center; gap:5px; flex:1; }
+.s3-ind-circle { width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; }
+.s3-ind-circle.done { background:#0d2818; color:#4ade80; border:1.5px solid #4ade80; }
+.s3-ind-circle.active { background:#4ade80; color:#000; }
+.s3-ind-circle.waiting { background:#111; color:#444; border:1.5px solid #222; }
+.s3-ind-label { font-size:9px; color:#444; text-align:center; text-transform:uppercase; letter-spacing:.05em; }
+.s3-ind-label.done { color:#4ade80; }
+.s3-ind-label.active { color:#aaa; }
+.s3-ind-connector { flex:1; height:1px; background:#1a1a1a; margin-top:18px; }
+.s3-ind-connector.done { background:#4ade80; }
+.s3-qr-area { width:180px; height:180px; background:#111; border:2px solid #1a3a22; border-radius:20px; display:flex; flex-direction:column; align-items:center; justify-content:center; margin-bottom:20px; position:relative; overflow:hidden; }
+.s3-qr-grid { display:grid; grid-template-columns:repeat(8,1fr); gap:2px; padding:16px; width:100%; height:100%; }
+.s3-qr-cell { border-radius:1px; }
+.s3-qr-corner { position:absolute; width:28px; height:28px; border:3px solid #4ade80; border-radius:4px; }
+.s3-qr-corner.tl { top:14px; left:14px; border-right:none; border-bottom:none; }
+.s3-qr-corner.tr { top:14px; right:14px; border-left:none; border-bottom:none; }
+.s3-qr-corner.bl { bottom:14px; left:14px; border-right:none; border-top:none; }
+.s3-scan-line { position:absolute; width:80%; height:2px; background:linear-gradient(90deg,transparent,#4ade80,transparent); animation:scanline 2s infinite; }
+@keyframes scanline { 0%{top:20px}100%{top:155px} }
+.s3-inst { font-size:13px; color:#888; text-align:center; line-height:1.6; margin-bottom:6px; }
+.s3-inst strong { color:white; }
+.s3-timer { font-size:11px; color:#444; text-align:center; }
+.s3-timer span { color:#f97316; font-weight:600; }
+
+/* guide overlay */
+.s3-guide-overlay { display:none; position:absolute; top:0; left:0; right:0; bottom:0; background:#0a0a0a; z-index:10; flex-direction:column; padding:20px 20px 16px; overflow-y:auto; }
+.s3-guide-overlay.show { display:flex; }
+.s3-guide-close { align-self:flex-end; color:#4ade80; font-size:13px; cursor:pointer; margin-bottom:16px; background:#0d2818; border:1px solid #1a3a22; padding:5px 12px; border-radius:20px; }
+.s3-guide-title { font-size:18px; font-weight:800; color:white; margin-bottom:6px; }
+.s3-guide-sub { font-size:12px; color:#555; line-height:1.6; margin-bottom:18px; }
+.s3-guide-steps { display:flex; flex-direction:column; gap:10px; margin-bottom:18px; }
+.s3-gstep { display:flex; gap:12px; align-items:flex-start; background:#111; border:1px solid #1a1a1a; border-radius:12px; padding:11px; }
+.s3-gstep-num { width:26px; height:26px; border-radius:50%; background:#4ade80; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:800; color:#000; flex-shrink:0; }
+.s3-gstep-title { font-size:12px; font-weight:700; color:white; margin-bottom:2px; }
+.s3-gstep-desc { font-size:11px; color:#555; line-height:1.5; }
+.s3-gps-note { background:#0d2818; border:1px solid #1a3a22; border-radius:10px; padding:11px; display:flex; gap:8px; }
+.s3-gps-icon { font-size:16px; }
+.s3-gps-text { font-size:11px; color:#666; line-height:1.5; }
+.s3-gps-text strong { color:#4ade80; }
+
+/* result states */
+.s3-result { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:28px 22px; }
+.s3-big-icon { width:90px; height:90px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:40px; margin-bottom:18px; }
+.s3-result-title { font-size:22px; font-weight:900; color:white; margin-bottom:6px; text-align:center; }
+.s3-result-sub { font-size:12px; color:#555; text-align:center; line-height:1.6; margin-bottom:18px; }
+.s3-info-card { background:#111; border:1px solid #1a1a1a; border-radius:14px; padding:13px 16px; width:100%; margin-bottom:14px; }
+.s3-info-row { display:flex; justify-content:space-between; align-items:center; padding:5px 0; border-bottom:1px solid #1a1a1a; font-size:12px; }
+.s3-info-row:last-child { border:none; }
+.s3-info-lbl { color:#444; }
+.s3-info-val { color:white; font-weight:600; }
+.s3-info-val.green { color:#4ade80; }
+.demo-toggle { display:flex; gap:6px; padding:10px 18px; background:#0a0a0a; justify-content:center; border-top:1px solid #111; flex-shrink:0; }
+.demo-btn { padding:7px 12px; border-radius:20px; border:1.5px solid #222; background:#111; font-size:10px; cursor:pointer; font-weight:600; color:#666; }
+.demo-btn.go { border-color:#4ade80; color:#4ade80; background:#0d2818; }
+.demo-btn.no { border-color:#b91c1c; color:#f87171; background:#1a0a0a; }
+
+/* ── S4: ADMIN ── */
+.s4-bg { background:#0a0a0a; flex:1; display:flex; flex-direction:column; overflow-y:auto; }
+.s4-header { padding:20px 18px 14px; display:flex; justify-content:space-between; align-items:flex-start; }
+.s4-gym-name { color:white; font-size:17px; font-weight:800; }
+.s4-gym-sub { color:#444; font-size:11px; margin-top:2px; }
+.s4-admin-pill { background:#4ade80; color:#000; font-size:9px; font-weight:800; padding:4px 10px; border-radius:20px; text-transform:uppercase; letter-spacing:.05em; }
+.s4-alert { background:#1a0f00; border-left:3px solid #f97316; padding:10px 16px; display:flex; gap:8px; align-items:flex-start; }
+.s4-alert-text { font-size:11px; color:#d97706; line-height:1.5; }
+.s4-alert-text strong { color:#f97316; }
+.s4-kpis { display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:14px 16px 8px; }
+.s4-kpi { background:#111; border:1px solid #1a1a1a; border-radius:14px; padding:13px; }
+.s4-kpi-label { font-size:9px; color:#444; text-transform:uppercase; letter-spacing:.07em; margin-bottom:4px; }
+.s4-kpi-val { font-size:20px; font-weight:800; color:white; }
+.s4-kpi-sub { font-size:10px; color:#444; margin-top:2px; }
+.s4-kpi-sub.up { color:#4ade80; }
+.s4-kpi-sub.warn { color:#f97316; }
+.s4-tier-dist { margin:8px 16px; background:#111; border:1px solid #1a1a1a; border-radius:14px; padding:12px; }
+.s4-td-title { font-size:10px; color:#444; text-transform:uppercase; letter-spacing:.07em; margin-bottom:8px; }
+.s4-td-bar { display:flex; height:8px; border-radius:4px; overflow:hidden; gap:2px; margin-bottom:8px; }
+.s4-td-seg { height:8px; border-radius:2px; }
+.s4-td-legend { display:flex; gap:8px; flex-wrap:wrap; }
+.s4-td-item { display:flex; align-items:center; gap:4px; font-size:9px; color:#555; }
+.s4-td-dot { width:6px; height:6px; border-radius:50%; }
+.s4-tablet-note { margin:0 16px 8px; background:#0a1a2e; border:1px solid #1a2a3e; border-radius:12px; padding:11px 13px; display:flex; gap:10px; align-items:flex-start; }
+.s4-tablet-icon { font-size:18px; }
+.s4-tablet-text { font-size:11px; color:#6b9fd4; line-height:1.5; }
+.s4-tablet-text strong { color:#90c4f0; }
+.s4-members-header { display:flex; justify-content:space-between; align-items:center; padding:8px 16px 6px; }
+.s4-members-title { font-size:12px; font-weight:600; color:white; }
+.s4-csv-btn { background:#111; border:1px solid #333; color:#aaa; font-size:10px; padding:5px 12px; border-radius:20px; cursor:pointer; }
+.s4-member { display:flex; align-items:center; gap:10px; padding:10px 16px; border-top:1px solid #111; }
+.s4-av { width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:white; flex-shrink:0; }
+.s4-minfo { flex:1; min-width:0; }
+.s4-mname { font-size:12px; font-weight:600; color:white; }
+.s4-msub { font-size:10px; color:#444; margin-top:1px; }
+.s4-mright { text-align:right; flex-shrink:0; }
+.s4-badge { font-size:9px; font-weight:700; padding:3px 8px; border-radius:20px; display:inline-block; margin-bottom:2px; }
+.s4-mprice { font-size:10px; color:#444; }
+
+/* ── S5: TABLET QR DISPLAY ── */
+.s5-bg { background:#0a0a0a; flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px; }
+.s5-gym-label { font-size:11px; color:#444; text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px; }
+.s5-gym-name { font-size:20px; font-weight:800; color:white; margin-bottom:4px; text-align:center; }
+.s5-gym-sub { font-size:12px; color:#444; margin-bottom:28px; text-align:center; }
+.s5-qr-box { width:200px; height:200px; background:#111; border:2px solid #1a3a22; border-radius:20px; display:flex; flex-direction:column; align-items:center; justify-content:center; margin-bottom:20px; position:relative; overflow:hidden; }
+.s5-qr-grid { display:grid; grid-template-columns:repeat(8,1fr); gap:2px; padding:18px; width:100%; height:100%; }
+.s5-qr-cell { border-radius:1px; }
+.s5-qr-corner { position:absolute; width:30px; height:30px; border:3px solid #4ade80; border-radius:4px; }
+.s5-qr-corner.tl { top:14px; left:14px; border-right:none; border-bottom:none; }
+.s5-qr-corner.tr { top:14px; right:14px; border-left:none; border-bottom:none; }
+.s5-qr-corner.bl { bottom:14px; left:14px; border-right:none; border-top:none; }
+.s5-inst { font-size:14px; color:#888; text-align:center; margin-bottom:8px; }
+.s5-inst strong { color:white; }
+.s5-timer-bar { background:#111; border:1px solid #1a1a1a; border-radius:12px; padding:10px 16px; display:flex; align-items:center; gap:10px; width:100%; margin-bottom:24px; }
+.s5-timer-icon { font-size:16px; }
+.s5-timer-text { font-size:12px; color:#555; flex:1; }
+.s5-timer-text span { color:#f97316; font-weight:700; }
+.s5-timer-track { height:3px; background:#1a1a1a; border-radius:2px; flex:1; }
+.s5-timer-fill { height:3px; background:#f97316; border-radius:2px; width:55%; }
+.s5-footer { font-size:10px; color:#333; text-align:center; }
+.s5-footer span { color:#444; }
+
+/* ── S6: CSV UPLOAD ── */
+.s6-bg { background:#0a0a0a; flex:1; display:flex; flex-direction:column; }
+.s6-header { padding:20px 18px 14px; display:flex; align-items:center; gap:12px; border-bottom:1px solid #111; }
+.s6-back { color:#4ade80; font-size:20px; cursor:pointer; }
+.s6-header-title { color:white; font-size:16px; font-weight:700; }
+.s6-body { padding:18px; flex:1; overflow-y:auto; }
+.s6-explainer { background:#111; border:1px solid #1a1a1a; border-radius:14px; padding:14px; margin-bottom:16px; }
+.s6-exp-title { font-size:12px; font-weight:700; color:white; margin-bottom:6px; }
+.s6-exp-text { font-size:11px; color:#555; line-height:1.6; }
+.s6-zone { border:2px dashed #222; border-radius:18px; padding:28px 20px; text-align:center; margin-bottom:14px; background:#0d0d0d; }
+.s6-zone-icon { font-size:30px; margin-bottom:6px; }
+.s6-zone-title { font-size:13px; font-weight:700; color:white; margin-bottom:4px; }
+.s6-zone-sub { font-size:11px; color:#444; margin-bottom:12px; }
+.s6-zone-btn { display:inline-block; padding:8px 20px; background:#4ade80; color:#000; border-radius:20px; font-size:12px; font-weight:700; cursor:pointer; }
+.s6-fmt { background:#111; border:1px solid #1a1a1a; border-radius:14px; padding:12px; margin-bottom:14px; }
+.s6-fmt-title { font-size:11px; font-weight:600; color:#888; margin-bottom:8px; }
+.s6-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:4px; }
+.s6-cell { background:#1a1a1a; color:#888; font-size:9px; padding:5px 6px; border-radius:4px; text-align:center; font-weight:600; }
+.s6-cell.d { background:#111; color:#444; font-weight:400; }
+.s6-preview { background:#0d2818; border:1px solid #1a3a22; border-radius:14px; padding:12px; margin-bottom:14px; }
+.s6-prev-title { font-size:11px; font-weight:600; color:#4ade80; margin-bottom:8px; }
+.s6-prev-row { display:flex; justify-content:space-between; font-size:10px; color:#666; padding:4px 0; border-bottom:1px solid #1a3a22; }
+.s6-prev-row:last-child { border:none; }
+.s6-import { width:100%; padding:14px; background:#4ade80; color:#000; border:none; border-radius:14px; font-size:15px; font-weight:800; cursor:pointer; }
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+  <span class="nav-label">Screen:</span>
+  <button class="nav-btn active" onclick="show('s0')">0 · Onboarding</button>
+  <button class="nav-btn" onclick="show('s1')">1 · Login</button>
+  <button class="nav-btn" onclick="show('s2')">2 · Dashboard</button>
+  <button class="nav-btn" onclick="show('s3')">3 · Check-in</button>
+  <button class="nav-btn" onclick="show('s4')">4 · Admin</button>
+  <button class="nav-btn" onclick="show('s5')">5 · Tablet QR</button>
+  <button class="nav-btn" onclick="show('s6')">6 · CSV Upload</button>
+</div>
+
+<div class="phone-wrap">
+  <div class="phone">
+    <div class="phone-top"><div class="phone-notch"></div></div>
+    <div class="phone-screen" style="position:relative">
+
+      <!-- S0: ONBOARDING -->
+      <div class="screen active" id="s0">
+        <div class="s0-bg">
+          <div class="s0-logo">Gym<span>Flex</span></div>
+          <div class="s0-tagline">The smarter gym membership</div>
+          <div class="s0-headline">Work out more.<br><span>Pay less.</span></div>
+          <div class="s0-intro">The more you visit, the less you pay — automatically.</div>
+          <div class="s0-steps">
+            <div class="s0-step">
+              <div class="s0-num">1</div>
+              <div class="s0-step-body">
+                <div class="s0-step-title">Join at the entry price</div>
+                <div class="s0-step-desc">Everyone starts at Starter. Your price drops as you build your habit.</div>
+              </div>
+            </div>
+            <div class="s0-step">
+              <div class="s0-num">2</div>
+              <div class="s0-step-body">
+                <div class="s0-step-title">Check in every visit — 2 ways</div>
+                <div class="s0-step-desc">Tap Check in when you arrive. GPS + QR scan at reception confirms you're there. 5 seconds.</div>
+              </div>
+            </div>
+            <div class="s0-step">
+              <div class="s0-num">3</div>
+              <div class="s0-step-body">
+                <div class="s0-step-title">Watch your price drop</div>
+                <div class="s0-step-desc">Visits counted monthly. More visits = lower price next month. Automatic.</div>
+              </div>
+            </div>
+          </div>
+          <div class="s0-tiers">
+            <div class="s0-tiers-title">Monthly visit tiers</div>
+            <div class="s0-tier-row"><div class="s0-tier-dot" style="background:#ef4444"></div><div class="s0-tier-name">Starter</div><div class="s0-tier-visits">0–2 visits</div><div class="s0-tier-price">CHF 129</div></div>
+            <div class="s0-tier-row"><div class="s0-tier-dot" style="background:#f97316"></div><div class="s0-tier-name">Regular</div><div class="s0-tier-visits">3–7 visits</div><div class="s0-tier-price">CHF 109</div><div class="s0-tier-saving">-20</div></div>
+            <div class="s0-tier-row"><div class="s0-tier-dot" style="background:#3b82f6"></div><div class="s0-tier-name">Active</div><div class="s0-tier-visits">8–12 visits</div><div class="s0-tier-price">CHF 89</div><div class="s0-tier-saving">-40</div></div>
+            <div class="s0-tier-row"><div class="s0-tier-dot" style="background:#4ade80"></div><div class="s0-tier-name">Committed</div><div class="s0-tier-visits">13–19</div><div class="s0-tier-price">CHF 69</div><div class="s0-tier-saving">-60</div></div>
+            <div class="s0-tier-row"><div class="s0-tier-dot" style="background:#fbbf24"></div><div class="s0-tier-name">Champion</div><div class="s0-tier-visits">20+</div><div class="s0-tier-price">CHF 49</div><div class="s0-tier-saving">-80</div></div>
+          </div>
+          <button class="s0-cta" onclick="show('s1')">Get started →</button>
+          <div class="s0-signin" onclick="show('s1')">Already a member? <span>Sign in</span></div>
+        </div>
+      </div>
+
+      <!-- S1: LOGIN -->
+      <div class="screen" id="s1">
+        <div class="s1-bg">
+          <div class="s1-logo">Gym<span>Flex</span></div>
+          <div class="s1-tag">Sign in to your account</div>
+          <div class="s1-h">Welcome back 👋</div>
+          <div class="s1-sub">Sign in with email or continue with Apple or Google</div>
+          <label class="field-lbl">Email</label>
+          <input class="field on" value="anna@example.com" readonly />
+          <label class="field-lbl">Password</label>
+          <input class="field" type="password" value="password" readonly />
+          <button class="btn-main" onclick="show('s2')">Sign in →</button>
+          <div class="s1-or"><div class="s1-or-line"></div><div class="s1-or-text">or continue with</div><div class="s1-or-line"></div></div>
+          <div class="s1-socials">
+            <button class="s1-social-btn" onclick="show('s2')"><span style="font-size:16px">🍎</span> Continue with Apple</button>
+            <button class="s1-social-btn" onclick="show('s2')"><span style="font-size:16px">🔵</span> Continue with Google</button>
+          </div>
+          <div class="s1-foot">New member? Your gym sends you an <span>invite link</span>.</div>
+        </div>
+      </div>
+
+      <!-- S2: DASHBOARD -->
+      <div class="screen" id="s2">
+        <div class="s2-bg">
+          <div class="s2-header">
+            <div><div class="s2-greet">Good morning,</div><div class="s2-name">Anna Meier 👋</div></div>
+            <div class="s2-av">AM</div>
+          </div>
+          <div class="s2-tier-card">
+            <div class="s2-tc-top">
+              <div><div class="s2-tc-lbl">Current tier</div><div class="s2-tc-tier">⚡ Active</div></div>
+              <div class="s2-tc-price-block"><div class="s2-tc-price-lbl">Next month</div><div class="s2-tc-price">CHF 89</div><div class="s2-tc-price-sub">billed 1 Sept</div></div>
+            </div>
+            <div class="s2-prog-lbl"><span>8 visits this month</span><span>4 more → CHF 69 💚</span></div>
+            <div class="s2-prog-track"><div class="s2-prog-fill"></div></div>
+            <div class="s2-next-msg">Hit <strong>12 visits</strong> by end of August → drop to <strong>CHF 69</strong></div>
+          </div>
+          <div class="s2-kpis">
+            <div class="s2-kpi"><div class="s2-kpi-v">8</div><div class="s2-kpi-l">Visits</div><div class="s2-kpi-sub" style="color:#fbbf24">this month</div></div>
+            <div class="s2-kpi"><div class="s2-kpi-v" style="color:#4ade80">CHF 89</div><div class="s2-kpi-l">Next price</div><div class="s2-kpi-sub" style="color:#444">Sept 1st</div></div>
+            <div class="s2-kpi"><div class="s2-kpi-v" style="color:#f97316">CHF 40</div><div class="s2-kpi-l">Saved</div><div class="s2-kpi-sub" style="color:#4ade80">vs entry</div></div>
+          </div>
+          <div class="s2-ci-btn" onclick="show('s3')">
+            <div class="s2-ci-left"><div class="s2-ci-label">Tap to log a visit</div><div class="s2-ci-title">Check in now</div><div class="s2-ci-sub">📍 FitZone Zürich</div></div>
+            <div class="s2-ci-icon">→</div>
+          </div>
+          <div class="s2-section-lbl">Recent visits</div>
+          <div class="s2-visit-row"><div class="s2-visit-dot"></div><div class="s2-visit-day">Today, Mon 31 Aug</div><div class="s2-visit-badge">+1</div><div class="s2-visit-time">07:14</div></div>
+          <div class="s2-visit-row"><div class="s2-visit-dot"></div><div class="s2-visit-day">Sat 29 Aug</div><div class="s2-visit-badge">+1</div><div class="s2-visit-time">09:32</div></div>
+          <div class="s2-visit-row"><div class="s2-visit-dot"></div><div class="s2-visit-day">Thu 27 Aug</div><div class="s2-visit-badge">+1</div><div class="s2-visit-time">18:05</div></div>
+
+          <div class="s2-section-lbl" style="margin-top:6px">All tiers</div>
+          <div style="padding:0 16px 20px">
+            <div style="background:#111;border:1px solid #1a1a1a;border-radius:16px;overflow:hidden">
+              <!-- starter -->
+              <div style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid #1a1a1a">
+                <div style="width:8px;height:8px;border-radius:50%;background:#dc2626;flex-shrink:0"></div>
+                <div style="flex:1;font-size:12px;color:#f87171;opacity:.6">Starter</div>
+                <div style="font-size:10px;color:#444;margin-right:8px">0–2 visits</div>
+                <div style="font-size:12px;font-weight:700;color:#555">CHF 129</div>
+              </div>
+              <!-- regular -->
+              <div style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid #1a1a1a">
+                <div style="width:8px;height:8px;border-radius:50%;background:#ea580c;flex-shrink:0"></div>
+                <div style="flex:1;font-size:12px;color:#fb923c;opacity:.6">Regular</div>
+                <div style="font-size:10px;color:#444;margin-right:8px">3–7 visits</div>
+                <div style="font-size:12px;font-weight:700;color:#555">CHF 109</div>
+              </div>
+              <!-- active — current -->
+              <div style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid #1a1a1a;background:#2a1e00;border-left:3px solid #d97706">
+                <div style="width:8px;height:8px;border-radius:50%;background:#fbbf24;flex-shrink:0"></div>
+                <div style="flex:1;font-size:12px;color:#fbbf24;font-weight:600">Active <span style="font-size:9px;background:#d97706;color:#000;padding:1px 6px;border-radius:20px;margin-left:4px;font-weight:700">YOU</span></div>
+                <div style="font-size:10px;color:#fbbf24;margin-right:8px;opacity:.6">8–12 visits</div>
+                <div style="font-size:12px;font-weight:700;color:#fbbf24">CHF 89</div>
+              </div>
+              <!-- committed -->
+              <div style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid #1a1a1a">
+                <div style="width:8px;height:8px;border-radius:50%;background:#2563eb;flex-shrink:0;opacity:.5"></div>
+                <div style="flex:1;font-size:12px;color:#60a5fa;opacity:.5">Committed</div>
+                <div style="font-size:10px;color:#333;margin-right:8px">13–19 visits</div>
+                <div style="font-size:12px;font-weight:700;color:#444">CHF 69</div>
+              </div>
+              <!-- champion -->
+              <div style="display:flex;align-items:center;gap:10px;padding:9px 14px">
+                <div style="width:8px;height:8px;border-radius:50%;background:#ca8a04;flex-shrink:0;opacity:.5"></div>
+                <div style="flex:1;font-size:12px;color:#fde047;opacity:.5">Champion 🏆</div>
+                <div style="font-size:10px;color:#333;margin-right:8px">20+ visits</div>
+                <div style="font-size:12px;font-weight:700;color:#444">CHF 49</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- S3: CHECK-IN (RETURNING USER VIEW) -->
+      <div class="screen" id="s3" style="position:relative">
+        <div class="s3-bg">
+          <div class="s3-topbar">
+            <span class="s3-back" onclick="show('s2')">←</span>
+            <div class="s3-topbar-title">Check in</div>
+            <div class="s3-guide-btn" onclick="toggleGuide(true)">? Guide</div>
+          </div>
+
+          <!-- NORMAL CHECK-IN VIEW -->
+          <div id="s3-normal">
+            <div class="s3-main">
+              <!-- step indicators -->
+              <div style="display:flex;align-items:center;width:100%;margin-bottom:28px">
+                <div class="s3-ind" style="flex:0 0 auto;align-items:center">
+                  <div class="s3-ind-circle done">✓</div>
+                  <div class="s3-ind-label done" style="margin-top:4px">GPS</div>
+                </div>
+                <div style="flex:1;height:2px;background:#1a3a22;margin:0 8px;margin-bottom:18px"></div>
+                <div class="s3-ind" style="flex:0 0 auto;align-items:center">
+                  <div class="s3-ind-circle active">2</div>
+                  <div class="s3-ind-label active" style="margin-top:4px">QR Scan</div>
+                </div>
+                <div style="flex:1;height:2px;background:#1a1a1a;margin:0 8px;margin-bottom:18px"></div>
+                <div class="s3-ind" style="flex:0 0 auto;align-items:center">
+                  <div class="s3-ind-circle waiting">3</div>
+                  <div class="s3-ind-label" style="margin-top:4px">Done</div>
+                </div>
+              </div>
+
+              <!-- fake qr scanner -->
+              <div class="s3-qr-area">
+                <div class="s3-qr-grid" id="qrGrid"></div>
+                <div class="s3-qr-corner tl"></div>
+                <div class="s3-qr-corner tr"></div>
+                <div class="s3-qr-corner bl"></div>
+                <div class="s3-scan-line"></div>
+              </div>
+              <div class="s3-inst">Point your camera at the <strong>QR code on the tablet</strong> at gym reception</div>
+              <div class="s3-timer">Code refreshes in <span>43 min</span></div>
+            </div>
+          </div>
+
+          <!-- SUCCESS -->
+          <div id="s3-ok" class="s3-result" style="display:none">
+            <div class="s3-big-icon" style="background:#0d2818;border:2px solid #4ade80">✅</div>
+            <div class="s3-result-title">Checked in! 🎉</div>
+            <div class="s3-result-sub">Visit logged at FitZone Zürich<br>Mon 31 Aug · 07:14am</div>
+            <div class="s3-info-card">
+              <div class="s3-info-row"><span class="s3-info-lbl">Visits this month</span><span class="s3-info-val green">9 ↑</span></div>
+              <div class="s3-info-row"><span class="s3-info-lbl">Visits to next tier</span><span class="s3-info-val">3 more</span></div>
+              <div class="s3-info-row"><span class="s3-info-lbl">Next month's price</span><span class="s3-info-val">CHF 89</span></div>
+              <div class="s3-info-row"><span class="s3-info-lbl">Hit Committed?</span><span class="s3-info-val green">Save CHF 20 more</span></div>
+            </div>
+            <button class="btn-main" onclick="s3reset();show('s2')">← Back to dashboard</button>
+          </div>
+
+          <!-- ERROR -->
+          <div id="s3-err" class="s3-result" style="display:none">
+            <div class="s3-big-icon" style="background:#1a0a0a;border:2px solid #b91c1c">❌</div>
+            <div class="s3-result-title">Not at the gym</div>
+            <div class="s3-result-sub">Your GPS shows you're more than 50m from FitZone Zürich. Walk inside and try again.</div>
+            <div class="s3-info-card">
+              <div class="s3-info-row"><span class="s3-info-lbl">Your location</span><span class="s3-info-val" style="color:#f87171">Too far away</span></div>
+              <div class="s3-info-row"><span class="s3-info-lbl">Required</span><span class="s3-info-val">Within 50m</span></div>
+            </div>
+            <button class="btn-main" style="background:#111;color:#f87171;border:1px solid #b91c1c;margin-bottom:8px" onclick="s3reset()">Try again</button>
+            <button class="btn-main" onclick="s3reset();show('s2')">← Back to dashboard</button>
+          </div>
+        </div>
+
+        <!-- GUIDE OVERLAY — slides in on top -->
+        <div class="s3-guide-overlay" id="s3-guide">
+          <div class="s3-guide-close" onclick="toggleGuide(false)">✕ Close</div>
+          <div class="s3-guide-title">How to check in</div>
+          <div class="s3-guide-sub">Every visit you log counts toward your monthly total and sets your price next month.</div>
+          <div class="s3-guide-steps">
+            <div class="s3-gstep">
+              <div class="s3-gstep-num">1</div>
+              <div><div class="s3-gstep-title">Arrive at the gym</div><div class="s3-gstep-desc">Be physically inside or at the entrance. GPS confirms you're within 50m — not from home, not from the street outside.</div></div>
+            </div>
+            <div class="s3-gstep">
+              <div class="s3-gstep-num">2</div>
+              <div><div class="s3-gstep-title">Tap "Check in now"</div><div class="s3-gstep-desc">The app checks your GPS automatically. If you're in range, the QR scanner opens.</div></div>
+            </div>
+            <div class="s3-gstep">
+              <div class="s3-gstep-num">3</div>
+              <div><div class="s3-gstep-title">Scan the tablet at reception</div><div class="s3-gstep-desc">The gym has a tablet showing a QR code. Point your phone at it. The code changes every hour so it can't be faked.</div></div>
+            </div>
+            <div class="s3-gstep">
+              <div class="s3-gstep-num">4</div>
+              <div><div class="s3-gstep-title">Done — visit logged</div><div class="s3-gstep-desc">Your monthly visit count updates instantly. You'll see your progress toward the next tier.</div></div>
+            </div>
+          </div>
+          <div class="s3-gps-note">
+            <div class="s3-gps-icon">🔒</div>
+            <div class="s3-gps-text"><strong>Privacy:</strong> We only check your location when you tap check in. We never track you continuously or store your location history.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S4: ADMIN DASHBOARD -->
+      <div class="screen" id="s4">
+        <div class="s4-bg">
+          <div class="s4-header">
+            <div><div class="s4-gym-name">FitZone Zürich</div><div class="s4-gym-sub">August 2026 · 47 active members</div></div>
+            <div class="s4-admin-pill">Admin</div>
+          </div>
+          <div class="s4-alert">
+            <div class="s4-alert-text"><strong>⚠️ 6 members</strong> stuck on Starter tier 2+ months — high churn risk. Consider reaching out.</div>
+          </div>
+          <div class="s4-kpis">
+            <div class="s4-kpi"><div class="s4-kpi-label">Monthly Revenue</div><div class="s4-kpi-val">CHF 4,180</div><div class="s4-kpi-sub up">↑ +CHF 340 vs last month</div></div>
+            <div class="s4-kpi"><div class="s4-kpi-label">Active Members</div><div class="s4-kpi-val">47</div><div class="s4-kpi-sub up">↑ 3 new this month</div></div>
+            <div class="s4-kpi"><div class="s4-kpi-label">Avg. Visits/Member</div><div class="s4-kpi-val">9.2</div><div class="s4-kpi-sub up">↑ up from 7.8</div></div>
+            <div class="s4-kpi"><div class="s4-kpi-label">Churn Risk</div><div class="s4-kpi-val" style="color:#f97316">6</div><div class="s4-kpi-sub warn">Starter 2+ months</div></div>
+          </div>
+          <div class="s4-tier-dist">
+            <div class="s4-td-title">Tier distribution this month</div>
+            <div class="s4-td-bar">
+              <div class="s4-td-seg" style="width:13%;background:#dc2626"></div>
+              <div class="s4-td-seg" style="width:19%;background:#ea580c"></div>
+              <div class="s4-td-seg" style="width:28%;background:#d97706"></div>
+              <div class="s4-td-seg" style="width:25%;background:#2563eb"></div>
+              <div class="s4-td-seg" style="width:15%;background:#ca8a04"></div>
+            </div>
+            <div class="s4-td-legend">
+              <div class="s4-td-item"><div class="s4-td-dot" style="background:#dc2626"></div><span style="color:#f87171">Starter 13%</span></div>
+              <div class="s4-td-item"><div class="s4-td-dot" style="background:#ea580c"></div><span style="color:#fb923c">Regular 19%</span></div>
+              <div class="s4-td-item"><div class="s4-td-dot" style="background:#d97706"></div><span style="color:#fbbf24">Active 28%</span></div>
+              <div class="s4-td-item"><div class="s4-td-dot" style="background:#2563eb"></div><span style="color:#60a5fa">Committed 25%</span></div>
+              <div class="s4-td-item"><div class="s4-td-dot" style="background:#ca8a04"></div><span style="color:#fde047">Champion 15%</span></div>
+            </div>
+          </div>
+          <div class="s4-tablet-note">
+            <div class="s4-tablet-icon">📟</div>
+            <div class="s4-tablet-text"><strong>Tablet QR display active</strong> — your reception tablet is showing today's rotating check-in code. Code refreshes every hour automatically.</div>
+          </div>
+          <div class="s4-members-header">
+            <div class="s4-members-title">Members</div>
+            <button class="s4-csv-btn" onclick="show('s6')">+ Import CSV</button>
+          </div>
+          <div class="s4-member">
+            <div class="s4-av" style="background:#2d7a3a">AM</div>
+            <div class="s4-minfo"><div class="s4-mname">Anna Meier</div><div class="s4-msub">8 visits · joined Mar 2026</div></div>
+            <div class="s4-mright"><span class="s4-badge" style="background:#3a2800;color:#fbbf24">Active</span><div class="s4-mprice">CHF 89 next mo.</div></div>
+          </div>
+          <div class="s4-member">
+            <div class="s4-av" style="background:#7f1d1d">LB</div>
+            <div class="s4-minfo"><div class="s4-mname">Luca Bernasconi</div><div class="s4-msub">2 visits · ⚠️ churn risk</div></div>
+            <div class="s4-mright"><span class="s4-badge" style="background:#2a0a0a;color:#f87171">Starter</span><div class="s4-mprice">CHF 129 next mo.</div></div>
+          </div>
+          <div class="s4-member">
+            <div class="s4-av" style="background:#14532d">SR</div>
+            <div class="s4-minfo"><div class="s4-mname">Sara Rossi</div><div class="s4-msub">21 visits · 🏆 champion</div></div>
+            <div class="s4-mright"><span class="s4-badge" style="background:#2a1f00;color:#fde047">Champion</span><div class="s4-mprice">CHF 49 next mo.</div></div>
+          </div>
+          <div class="s4-member">
+            <div class="s4-av" style="background:#4c1d95">MK</div>
+            <div class="s4-minfo"><div class="s4-mname">Marco Keller</div><div class="s4-msub">14 visits · 🔥 on a streak</div></div>
+            <div class="s4-mright"><span class="s4-badge" style="background:#0f1e4a;color:#93c5fd">Committed</span><div class="s4-mprice">CHF 69 next mo.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S5: TABLET QR DISPLAY -->
+      <div class="screen" id="s5">
+        <div class="s5-bg">
+          <div class="s5-gym-label">Reception display</div>
+          <div class="s5-gym-name">FitZone Zürich</div>
+          <div class="s5-gym-sub">Open GymFlex on your phone and scan to check in</div>
+          <div class="s5-qr-box">
+            <div class="s5-qr-grid" id="qrGrid2"></div>
+            <div class="s5-qr-corner tl"></div>
+            <div class="s5-qr-corner tr"></div>
+            <div class="s5-qr-corner bl"></div>
+          </div>
+          <div class="s5-inst"><strong>Scan this QR</strong> with GymFlex to check in</div>
+          <div class="s5-timer-bar">
+            <div class="s5-timer-icon">🕐</div>
+            <div class="s5-timer-text">Code refreshes in <span>43 min</span></div>
+            <div class="s5-timer-track"><div class="s5-timer-fill"></div></div>
+          </div>
+          <div class="s5-footer">Powered by <span>GymFlex</span> · gymflex.io</div>
+        </div>
+      </div>
+
+      <!-- S6: CSV UPLOAD -->
+      <div class="screen" id="s6">
+        <div class="s6-bg">
+          <div class="s6-header">
+            <span class="s6-back" onclick="show('s4')">←</span>
+            <div class="s6-header-title">Import Members</div>
+          </div>
+          <div class="s6-body">
+            <div class="s6-explainer">
+              <div class="s6-exp-title">What is this for?</div>
+              <div class="s6-exp-text">Already have members in a spreadsheet or another system? Import them all at once here. GymFlex creates their accounts and sends each person an invite email automatically. You only need to do this once when setting up.</div>
+            </div>
+            <div class="s6-zone">
+              <div class="s6-zone-icon">📄</div>
+              <div class="s6-zone-title">Upload your member CSV</div>
+              <div class="s6-zone-sub">Export from your current system and drop it here</div>
+              <div class="s6-zone-btn">Choose file</div>
+            </div>
+            <div class="s6-fmt">
+              <div class="s6-fmt-title">Required columns</div>
+              <div class="s6-grid">
+                <div class="s6-cell">name</div><div class="s6-cell">email</div><div class="s6-cell">phone</div>
+              </div>
+              <div class="s6-grid" style="margin-top:4px">
+                <div class="s6-cell d">Anna Meier</div><div class="s6-cell d">anna@...</div><div class="s6-cell d">+41 79...</div>
+              </div>
+            </div>
+            <div class="s6-preview">
+              <div class="s6-prev-title">✓ Preview — 3 members ready to import</div>
+              <div class="s6-prev-row"><span>Anna Meier</span><span>anna@example.com</span></div>
+              <div class="s6-prev-row"><span>Luca Bernasconi</span><span>luca@example.com</span></div>
+              <div class="s6-prev-row"><span>Sara Rossi</span><span>sara@example.com</span></div>
+            </div>
+            <button class="s6-import">Import 3 members & send invites →</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+// track if first time on check-in
+var checkinFirstTime = true;
+
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const labels = {s0:'0 · Onboarding',s1:'1 · Login',s2:'2 · Dashboard',s3:'3 · Check-in',s4:'4 · Admin',s5:'5 · Tablet QR',s6:'6 · CSV Upload'};
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.trim() === labels[id]);
+  });
+  if (id === 's3') {
+    s3reset();
+    // first time: show guide overlay; subsequent times: just show scanner
+    if (checkinFirstTime) {
+      toggleGuide(true);
+      checkinFirstTime = false;
+    } else {
+      toggleGuide(false);
+    }
+  }
+}
+
+function s3reset() {
+  document.getElementById('s3-normal').style.display = 'block';
+  document.getElementById('s3-ok').style.display = 'none';
+  document.getElementById('s3-err').style.display = 'none';
+}
+
+function ci(state) {
+  document.getElementById('s3-normal').style.display = state==='scan' ? 'block' : 'none';
+  document.getElementById('s3-ok').style.display = state==='ok' ? 'flex' : 'none';
+  document.getElementById('s3-err').style.display = state==='err' ? 'flex' : 'none';
+}
+
+function toggleGuide(show) {
+  var g = document.getElementById('s3-guide');
+  g.classList.toggle('show', show);
+}
+
+// generate fake QR grids
+function makeQR(id) {
+  var grid = document.getElementById(id);
+  if (!grid) return;
+  var cells = '';
+  for (var i = 0; i < 64; i++) {
+    var on = Math.random() > 0.5;
+    cells += '<div class="' + (id.includes('2') ? 's5-qr-cell' : 's3-qr-cell') + '" style="background:' + (on ? '#4ade80' : '#1a1a1a') + '"></div>';
+  }
+  grid.innerHTML = cells;
+}
+makeQR('qrGrid');
+makeQR('qrGrid2');
+
+// demo buttons for check-in states
+document.addEventListener('DOMContentLoaded', function() {});
+</script>
+
+<!-- demo toggle buttons outside phone for check-in -->
+<div style="display:flex;gap:8px;justify-content:center;margin-top:14px" id="ciDemoBar">
+  <span style="font-size:10px;color:#444;align-self:center;margin-right:4px">DEMO:</span>
+  <button onclick="if(document.getElementById('s3').classList.contains('active')){ci('ok')}" style="padding:7px 14px;border-radius:20px;border:1.5px solid #1a3a22;background:#0d2818;font-size:11px;cursor:pointer;font-weight:600;color:#4ade80">✓ Success</button>
+  <button onclick="if(document.getElementById('s3').classList.contains('active')){ci('err')}" style="padding:7px 14px;border-radius:20px;border:1.5px solid #7f1d1d;background:#1a0a0a;font-size:11px;cursor:pointer;font-weight:600;color:#f87171">✗ GPS fail</button>
+  <button onclick="if(document.getElementById('s3').classList.contains('active')){s3reset();toggleGuide(false)}" style="padding:7px 14px;border-radius:20px;border:1.5px solid #333;background:#111;font-size:11px;cursor:pointer;font-weight:600;color:#666">↺ Reset</button>
+</div>
+<div style="text-align:center;margin-top:8px;font-size:10px;color:#333">(Demo controls only visible on check-in screen)</div>
+
+</body>
+</html>
