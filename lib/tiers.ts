@@ -68,3 +68,34 @@ export function getNextTier(currentTier: Tier): Tier | null {
   if (index === -1 || index === TIERS.length - 1) return null;
   return TIERS[index + 1];
 }
+
+function hexToRgb(hex: string): [number, number, number] {
+  const n = parseInt(hex.slice(1), 16);
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+}
+
+function rgbToHex([r, g, b]: number[]): string {
+  const clamp = (v: number) => Math.max(0, Math.min(255, Math.round(v)));
+  return "#" + [r, g, b].map((v) => clamp(v).toString(16).padStart(2, "0")).join("");
+}
+
+// Derived from the wireframe's Active-tier dashboard card: gradient start is
+// tier.bg shifted by (-12,-10,0), border is tier.bg shifted by (+16,+10,0).
+// Reproduces the wireframe exactly for Active and generalises for other tiers.
+export function tierCardGradientFrom(tier: Tier): string {
+  const [r, g, b] = hexToRgb(tier.bg);
+  return rgbToHex([r - 12, g - 10, b]);
+}
+
+export function tierCardBorder(tier: Tier): string {
+  const [r, g, b] = hexToRgb(tier.bg);
+  return rgbToHex([r + 16, g + 10, b]);
+}
+
+// Darken tier.colour toward black by `amount` (0-1) — used for the
+// check-in button's label/sub text, which sit on a tier.colour background.
+export function darken(hex: string, amount: number): string {
+  const [r, g, b] = hexToRgb(hex);
+  const k = 1 - amount;
+  return rgbToHex([r * k, g * k, b * k]);
+}
