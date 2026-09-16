@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabase";
 import {
   TIERS,
   getTierForVisits,
@@ -10,22 +12,71 @@ import {
   darken,
 } from "@/lib/tiers";
 
-// TODO: replace with a live Supabase fetch once 0003_add_plan_type.sql has
-// been run — see supabase/migrations/0003_add_plan_type.sql. Values below
-// mirror the requested test member exactly: anna@test.com, 8 visits this
-// month, Active tier, monthly plan.
-const MOCK_MEMBER = {
-  name: "Anna Meier",
-  gymName: "FitZone Zürich",
-  visitsThisMonth: 8,
-  planType: "monthly" as "monthly" | "yearly",
+type RecentVisit = { label: string; time: string };
+
+type DashboardData = {
+  name: string;
+  gymName: string;
+  visitsThisMonth: number;
+  planType: "monthly" | "yearly";
+  recentVisits: RecentVisit[];
 };
 
-const MOCK_RECENT_VISITS = [
-  { label: "Today, Mon 31 Aug", time: "07:14" },
-  { label: "Sat 29 Aug", time: "09:32" },
-  { label: "Thu 27 Aug", time: "18:05" },
+const WEEKDAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const SHORT_MONTH_NAMES = [
+  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
 ];
+
+function formatVisitLabel(visitedAt: Date, today: Date) {
+  const isToday = visitedAt.toDateString() === today.toDateString();
+  const weekday = WEEKDAY_NAMES[visitedAt.getDay()];
+  const day = visitedAt.getDate();
+  const month = SHORT_MONTH_NAMES[visitedAt.getMonth()];
+  return isToday ? `Today, ${weekday} ${day} ${month}` : `${weekday} ${day} ${month}`;
+}
+
+function formatVisitTime(visitedAt: Date) {
+  return visitedAt.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false });
+}
+
+async function fetchDashboardData(email: string): Promise<DashboardData | null> {
+  const { data: member, error: memberError } = await supabase
+    .from("members")
+    .select("id, name, gym_id, plan_type")
+    .eq("email", email)
+    .maybeSingle();
+  if (memberError || !member) return null;
+
+  const { data: gym } = await supabase
+    .from("gyms")
+    .select("name")
+    .eq("id", member.gym_id)
+    .maybeSingle();
+
+  const now = new Date();
+  const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
+
+  const { data: visits } = await supabase
+    .from("visits")
+    .select("visited_at")
+    .eq("member_id", member.id)
+    .gte("visited_at", startOfMonth)
+    .order("visited_at", { ascending: false });
+
+  const visitDates = (visits ?? []).map((v) => new Date(v.visited_at));
+
+  return {
+    name: member.name,
+    gymName: gym?.name ?? "Your gym",
+    visitsThisMonth: visitDates.length,
+    planType: (member.plan_type as "monthly" | "yearly") ?? "monthly",
+    recentVisits: visitDates.slice(0, 5).map((d) => ({
+      label: formatVisitLabel(d, now),
+      time: formatVisitTime(d),
+    })),
+  };
+}
 
 const TIER_EMOJI: Record<string, string> = {
   Active: "⚡",
@@ -57,10 +108,43 @@ function useGreeting() {
 }
 
 export default function DashboardPage() {
-  const [planType, setPlanType] = useState<"monthly" | "yearly">(MOCK_MEMBER.planType);
+  const router = useRouter();
   const greeting = useGreeting();
+  const [data, setData] = useState<DashboardData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [planType, setPlanType] = useState<"monthly" | "yearly">("monthly");
 
-  const visits = MOCK_MEMBER.visitsThisMonth;
+  useEffect(() => {
+    let cancelled = false;
+    supabase.auth.getUser().then(async ({ data: { user } }) => {
+      if (!user?.email) {
+        router.replace("/login");
+        return;
+      }
+      const dashboardData = await fetchDashboardData(user.email);
+      if (cancelled) return;
+      if (!dashboardData) {
+        router.replace("/login");
+        return;
+      }
+      setData(dashboardData);
+      setPlanType(dashboardData.planType);
+      setLoading(false);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [router]);
+
+  if (loading || !data) {
+    return (
+      <main className="app-shell flex flex-col items-center justify-center" style={{ background: "#0a0a0a" }}>
+        <div style={{ color: "#555", fontSize: 13 }}>Loading…</div>
+      </main>
+    );
+  }
+
+  const visits = data.visitsThisMonth;
   const tier = getTierForVisits(visits);
   const nextTier = getNextTier(tier);
   const savedVsEntry = TIERS[0].priceChf - tier.priceChf;
@@ -94,7 +178,7 @@ export default function DashboardPage() {
         <div>
           <div style={{ color: "#444", fontSize: 11, marginBottom: 2 }}>{greeting}</div>
           <div style={{ color: "white", fontSize: 18, fontWeight: 800 }}>
-            {MOCK_MEMBER.name} 👋
+            {data.name} 👋
           </div>
         </div>
         <div
@@ -111,7 +195,7 @@ export default function DashboardPage() {
             color: "#000",
           }}
         >
-          {initials(MOCK_MEMBER.name)}
+          {initials(data.name)}
         </div>
       </div>
 
@@ -276,7 +360,7 @@ export default function DashboardPage() {
           </div>
           <div style={{ fontSize: 18, fontWeight: 900, color: "#fff8e7" }}>Check in now</div>
           <div style={{ fontSize: 11, color: darken(tier.colour, 0.3), marginTop: 1 }}>
-            📍 {MOCK_MEMBER.gymName}
+            📍 {data.gymName}
           </div>
         </div>
         <div style={{ fontSize: 28, color: "#fff8e7" }}>→</div>
@@ -285,12 +369,12 @@ export default function DashboardPage() {
       <div style={{ fontSize: 10, fontWeight: 600, color: "#444", textTransform: "uppercase", letterSpacing: ".08em", padding: "0 16px 8px" }}>
         Recent visits
       </div>
-      {MOCK_RECENT_VISITS.length === 0 ? (
+      {data.recentVisits.length === 0 ? (
         <div style={{ padding: "0 16px 16px", fontSize: 12, color: "#555" }}>
           No visits yet this month — check in when you arrive!
         </div>
       ) : (
-        MOCK_RECENT_VISITS.map((v) => (
+        data.recentVisits.map((v) => (
           <div
             key={v.label + v.time}
             style={{ display: "flex", alignItems: "center", gap: 10, padding: "9px 16px", borderTop: "1px solid #111" }}
