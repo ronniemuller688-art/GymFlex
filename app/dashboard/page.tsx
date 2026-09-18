@@ -181,21 +181,42 @@ export default function DashboardPage() {
             {data.name} 👋
           </div>
         </div>
-        <div
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: "50%",
-            background: "#4ade80",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: 14,
-            fontWeight: 800,
-            color: "#000",
-          }}
-        >
-          {initials(data.name)}
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <a
+            href="mailto:ronniemuller688@gmail.com?subject=GymFlex%20Support"
+            aria-label="Contact support"
+            style={{
+              width: 24,
+              height: 24,
+              borderRadius: "50%",
+              background: "#1a1a1a",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: 12,
+              fontWeight: 700,
+              color: "white",
+              flexShrink: 0,
+            }}
+          >
+            ?
+          </a>
+          <div
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: "50%",
+              background: "#4ade80",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: 14,
+              fontWeight: 800,
+              color: "#000",
+            }}
+          >
+            {initials(data.name)}
+          </div>
         </div>
       </div>
 
@@ -343,6 +364,12 @@ export default function DashboardPage() {
       </div>
 
       <div
+        onClick={() => router.push("/checkin")}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") router.push("/checkin");
+        }}
         style={{
           margin: "0 16px 16px",
           background: tier.colour,

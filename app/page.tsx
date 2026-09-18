@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { TIERS } from "@/lib/tiers";
 
@@ -28,6 +31,10 @@ const WIREFRAME_TIER_ROWS = [
 ];
 
 export default function OnboardingPage() {
+  const [planType, setPlanType] = useState<"monthly" | "yearly">("monthly");
+  const displayPrice = (chf: number) =>
+    planType === "yearly" ? Math.round(chf * 0.9) : chf;
+
   return (
     <main
       className="app-shell flex flex-col overflow-y-auto"
@@ -83,6 +90,54 @@ export default function OnboardingPage() {
         ))}
       </div>
 
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 14 }}>
+        <div style={{ display: "flex", background: "#111", border: "1px solid #1a1a1a", borderRadius: 24, padding: 3, gap: 3 }}>
+          <button
+            onClick={() => setPlanType("monthly")}
+            style={{
+              padding: "6px 16px",
+              borderRadius: 20,
+              fontSize: 11,
+              fontWeight: 700,
+              border: "none",
+              cursor: "pointer",
+              background: planType === "monthly" ? "#4ade80" : "transparent",
+              color: planType === "monthly" ? "#000" : "#444",
+            }}
+          >
+            Monthly
+          </button>
+          <button
+            onClick={() => setPlanType("yearly")}
+            style={{
+              padding: "6px 16px",
+              borderRadius: 20,
+              fontSize: 11,
+              fontWeight: 700,
+              border: "none",
+              cursor: "pointer",
+              background: planType === "yearly" ? "#4ade80" : "transparent",
+              color: planType === "yearly" ? "#000" : "#444",
+            }}
+          >
+            Yearly{" "}
+            <span
+              style={{
+                fontSize: 9,
+                fontWeight: 700,
+                background: "#d97706",
+                color: "#000",
+                padding: "2px 6px",
+                borderRadius: 20,
+                marginLeft: 4,
+              }}
+            >
+              Save 10%
+            </span>
+          </button>
+        </div>
+      </div>
+
       <div style={{ background: "#111", border: "1px solid #1a1a1a", borderRadius: 14, padding: 11, marginBottom: 14 }}>
         <div
           style={{
@@ -94,10 +149,11 @@ export default function OnboardingPage() {
             fontWeight: 600,
           }}
         >
-          Monthly visit tiers
+          {planType === "monthly" ? "Monthly visit tiers" : "Yearly visit tiers"}
         </div>
         {TIERS.map((tier, i) => {
-          const savingVsEntry = TIERS[0].priceChf - tier.priceChf;
+          const price = displayPrice(tier.priceChf);
+          const savingVsEntry = displayPrice(TIERS[0].priceChf) - price;
           const row = WIREFRAME_TIER_ROWS[i];
           const isLast = i === TIERS.length - 1;
           return (
@@ -113,7 +169,10 @@ export default function OnboardingPage() {
               <div style={{ width: 8, height: 8, borderRadius: "50%", flexShrink: 0, background: row.dot }} />
               <div style={{ fontSize: 12, color: "#aaa", flex: 1, fontWeight: 500 }}>{tier.name}</div>
               <div style={{ fontSize: 10, color: "#444", marginRight: 4 }}>{row.visitsLabel}</div>
-              <div style={{ fontSize: 13, fontWeight: 700, color: "white" }}>CHF {tier.priceChf}</div>
+              <div style={{ fontSize: 13, fontWeight: 700, color: "white" }}>
+                CHF {price}
+                {planType === "yearly" && <span style={{ fontSize: 9, color: "#4ade80" }}>/mo</span>}
+              </div>
               {savingVsEntry > 0 && (
                 <div style={{ fontSize: 9, color: "#4ade80", marginLeft: 4 }}>-{savingVsEntry}</div>
               )}
